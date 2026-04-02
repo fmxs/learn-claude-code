@@ -1,32 +1,32 @@
-# Learn Claude Code -- 真正的 Agent Harness 工程
-
 [English](./README.md) | [中文](./README-zh.md) | [日本語](./README-ja.md)
+
+# Learn Claude Code -- 真正的 Agent Harness 工程
 
 ## 模型就是 Agent
 
 在讨论代码之前，先把一件事彻底说清楚。
 
-**Agent 是模型。不是框架。不是提示词链。不是拖拽式工作流。**
+**Agent 本质上就是模型。它不是框架，不是提示链，也不是可视化拖拽工作流。**
 
 ### Agent 到底是什么
 
-Agent 是一个神经网络 -- Transformer、RNN、一个被训练出来的函数 -- 经过数十亿次梯度更新，在行动序列数据上学会了感知环境、推理目标、采取行动。"Agent" 这个词在 AI 领域从诞生之日起就是这个意思。从来都是。
+Agent 是一个神经网络 -- Transformer、RNN、一个被训练出来的函数 -- 经过数十亿次梯度更新，在行动序列数据上学会了感知环境、推理目标、采取行动。"Agent" 这个词在 AI 领域从诞生之日起就是这个意思，从来没有变过。
 
-人类就是 agent。一个由数百万年进化训练出来的生物神经网络，通过感官感知世界，通过大脑推理，通过身体行动。当 DeepMind、OpenAI 或 Anthropic 说 "agent" 时，他们说的和这个领域自诞生以来就一直在说的完全一样：**一个学会了行动的模型。**
+人类就是 agent。一个由数百万年进化训练出来的生物神经网络，通过感官感知世界，通过大脑推理，通过身体行动。当 DeepMind、OpenAI 或 Anthropic 说 "agent" 时，他们的意思和这个领域自诞生以来就一直在说的完全一致：**一个学会了行动的模型。**
 
-历史已经写好了铁证：
+历史已经写下了铁证：
 
-- **2013 -- DeepMind DQN 玩 Atari。** 一个神经网络，只接收原始像素和游戏分数，学会了 7 款 Atari 2600 游戏 -- 超越所有先前算法，在其中 3 款上击败人类专家。到 2015 年，同一架构扩展到 [49 款游戏，达到职业人类测试员水平](https://www.nature.com/articles/nature14236)，论文发表在 *Nature*。没有游戏专属规则。没有决策树。一个模型，从经验中学习。那个模型就是 agent。
+- **2013 -- DeepMind DQN 玩 Atari。** 一个神经网络，仅接收原始像素和游戏分数，学会了 7 款 Atari 2600 游戏 -- 超越了此前所有算法，并在其中 3 款上击败人类专家。到 2015 年，同一架构扩展到 [49 款游戏，达到职业人类水平](https://www.nature.com/articles/nature14236)，论文发表在 *Nature*。没有游戏专属规则，没有决策树。一个模型，从经验中学习。那个模型就是 agent。
 
-- **2019 -- OpenAI Five 征服 Dota 2。** 五个神经网络，在 10 个月内与自己对战了 [45,000 年的 Dota 2](https://openai.com/index/openai-five-defeats-dota-2-world-champions/)，在旧金山直播赛上 2-0 击败了 **OG** -- TI8 世界冠军。随后的公开竞技场中，AI 在 42,729 场比赛中胜率 99.4%。没有脚本化的策略。没有元编程的团队协调逻辑。模型完全通过自我对弈学会了团队协作、战术和实时适应。
+- **2019 -- OpenAI Five 征服 Dota 2。** 五个神经网络，在 10 个月内与自己对战了 [45,000 年的 Dota 2](https://openai.com/index/openai-five-defeats-dota-2-world-champions/)，在旧金山直播赛上 2-0 击败了 **OG** -- TI8 世界冠军。随后的公开竞技场中，AI 在 42,729 场比赛中胜率 99.4%。没有脚本策略，也没有元编程团队协作逻辑。模型完全通过自我对弈学会了团队协作、战术和实时适应。
 
-- **2019 -- DeepMind AlphaStar 制霸星际争霸 II。** AlphaStar 在闭门赛中 [10-1 击败职业选手](https://deepmind.google/blog/alphastar-mastering-the-real-time-strategy-game-starcraft-ii/)，随后在欧洲服务器上达到[宗师段位](https://www.nature.com/articles/d41586-019-03298-6) -- 90,000 名玩家中的前 0.15%。一个信息不完全、实时决策、组合动作空间远超国际象棋和围棋的游戏。Agent 是什么？是模型。训练出来的。不是编出来的。
+- **2019 -- DeepMind AlphaStar 制霸星际争霸 II。** AlphaStar 在闭门赛中 [10-1 击败职业选手](https://deepmind.google/blog/alphastar-mastering-the-real-time-strategy-game-starcraft-ii/)，随后在欧洲服务器上达到[宗师段位](https://www.nature.com/articles/d41586-019-03298-6) -- 90,000 名玩家中的前 0.15%。这是一款信息不完全、实时决策、组合动作空间远超国际象棋和围棋的游戏。Agent 是什么？是模型，是训练出来的，不是编出来的。
 
-- **2019 -- 腾讯绝悟统治王者荣耀。** 腾讯 AI Lab 的 "绝悟" 于 2019 年 8 月 2 日世冠杯半决赛上[以 5v5 击败 KPL 职业选手](https://www.jiemian.com/article/3371171.html)。在 1v1 模式下，职业选手 [15 场只赢 1 场，最多坚持不到 8 分钟](https://developer.aliyun.com/article/851058)。训练强度：一天等于人类 440 年。到 2021 年，绝悟在全英雄池 BO5 上全面超越 KPL 职业选手水准。没有手工编写的英雄克制表。没有脚本化的阵容编排。一个从零开始通过自我对弈学习整个游戏的模型。
+- **2019 -- 腾讯绝悟统治王者荣耀。** 腾讯 AI Lab 的 "绝悟" 于 2019 年 8 月 2 日世冠杯半决赛上[以 5v5 击败 KPL 职业选手](https://www.jiemian.com/article/3371171.html)。在 1v1 模式下，职业选手 [15 场只赢 1 场，最多坚持不到 8 分钟](https://developer.aliyun.com/article/851058)。训练强度：一天等于人类 440 年。到 2021 年，绝悟在全英雄池 BO5 上全面超越 KPL 职业选手水准。没有手写的英雄克制表，也没有脚本阵容编排。一个从零开始通过自我对弈学习整个游戏的模型。
 
-- **2024-2025 -- LLM Agent 重塑软件工程。** Claude、GPT、Gemini -- 在人类全部代码和推理上训练的大语言模型 -- 被部署为编程 agent。它们阅读代码库，编写实现，调试故障，团队协作。架构与之前每一个 agent 完全相同：一个训练好的模型，放入一个环境，给予感知和行动的工具。唯一的不同是它们学到的东西的规模和解决任务的通用性。
+- **2024-2025 -- LLM Agent 重塑软件工程。** Claude、GPT、Gemini -- 在全量人类代码和推理上训练的大语言模型 -- 被部署为编程 agent。它们阅读代码库、编写实例、调试故障、协同作业。架构与之前每一个 agent 完全相同：一个训练好的模型，放入一个环境，配备感知和行动的工具。唯一不同的是它们学习的规模和任务通用性。
 
-每一个里程碑都共享同一个真理：**"Agent" 从来都不是外面那层代码。Agent 永远是模型本身。**
+每一个里程碑都共享同一个真理：**"Agent" 从来不是外层代码，Agent 永远是模型本身。**
 
 ### Agent 不是什么
 
