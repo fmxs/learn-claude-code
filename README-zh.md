@@ -103,31 +103,37 @@ Harness = 工具 (Tools) + 知识 (Knowledge) + 观测 (Observation) + 行动接
 
 **造好你的 Harness，剩下的交给 Agent。**
 
-### 为什么是 Claude Code -- Harness 工程的大师课
+### 为什么选择 Claude Code：Harness 工程的大师课
 
-为什么这个仓库专门拆解 Claude Code？
+为什么本仓库选择深度拆解 Claude Code？
 
-因为 Claude Code 是我们所见过的最优雅、最完整的 agent harness 实现。不是因为某个巧妙的技巧，而是因为它 *没做* 的事：它没有试图成为 agent 本身。它没有强加僵化的工作流。它没有用精心设计的决策树去替模型做判断。它给模型提供了工具、知识、上下文管理和权限边界 -- 然后让开了。
+因为 Claude Code 是目前我们所见过的、最优雅且实现最完整的 **Agent Harness** 范本。它的卓越不在于某种奇巧淫技，而在于它**克制**了什么：它没有试图僭越成为 Agent 本身；它没有强加僵化的工作流；它更没有用复杂的决策树去预判模型的意图。
 
-把 Claude Code 剥到本质来看：
+Claude Code 的逻辑非常纯粹：**为模型提供工具、知识、上下文管理和权限边界，然后——退后，让模型自己发挥。**
+
+剥离表象，Claude Code 的本质架构极其精炼：
 
 ```
-Claude Code = 一个 agent loop
-            + 工具 (bash, read, write, edit, glob, grep, browser...)
-            + 按需 skill 加载
-            + 上下文压缩
-            + 子 agent 派生
-            + 带依赖图的任务系统
-            + 异步邮箱的团队协调
-            + worktree 隔离的并行执行
-            + 权限治理
+Claude Code = 核心 Agent Loop
+            + 基础工具集 (bash, read, write, edit, glob, grep, browser...)
+            + 技能按需加载 (On-demand Skill Loading)
+            + 上下文压缩 (Context Compression)
+            + 子 Agent 派生 (Subagent Spawning)
+            + 带依赖图的任务系统 (Task System w/ Dependency Graph)
+            + 基于异步信箱的团队协作 (Team Coordination)
+            + 工作流隔离的并行执行 (Worktree Isolation)
+            + 权限治理与安全边界 (Permission Governance)
 ```
 
-就这些。这就是全部架构。每一个组件都是 harness 机制 -- 为 agent 构建的栖居世界的一部分。Agent 本身呢？是 Claude。一个模型。由 Anthropic 在人类推理和代码的全部广度上训练而成。Harness 没有让 Claude 变聪明。Claude 本来就聪明。Harness 给了 Claude 双手、双眼和一个工作空间。
+这就是全部。每一个组件都是一种 Harness 机制 —— 它们共同构成了 Agent 赖以生存的“栖居地”。
 
-这就是 Claude Code 作为教学标本的意义：**它展示了当你信任模型、把工程精力集中在 harness 上时会发生什么。** 本仓库的每一个课程（s01-s12）都在逆向工程 Claude Code 架构中的一个 harness 机制。学完之后，你理解的不只是 Claude Code 怎么工作，而是适用于任何领域、任何 agent 的 harness 工程通用原则。
+至于 Agent 本身，它是 Claude。一个由 Anthropic 在全人类推理逻辑与代码数据上训练而成的深度模型。Harness 并没有让 Claude 变聪明，Claude 本身就足够聪明。Harness 的意义在于给了 Claude 双手、双眼和一个高效的作业空间。
 
-启示不是 "复制 Claude Code"。启示是：**最好的 agent 产品，出自那些明白自己的工作是 harness 而非 intelligence 的工程师之手。**
+这也是 Claude Code 具备极高教学价值的原因：**它完美演示了当你选择信任模型，并将工程精力全部集中在 Harness 上时，能爆发多大的生产力。** 
+
+本仓库的每一章（s01-s12）都在逆向工程 Claude Code 架构中的一个核心 Harness 机制。学完这些课程，你掌握的不只是 Claude Code 的运行逻辑，更是能够横跨任何领域、适配任何 Agent 的 Harness 工程通用原则。
+
+这门课给我们的启示并非“复制一个 Claude Code”，而是：**真正顶级的 Agent 产品，往往出自那些深刻理解“自己的工作是构建 Harness，而非代行 Intelligence”的工程师之手。**
 
 ---
 
