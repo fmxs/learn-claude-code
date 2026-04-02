@@ -47,31 +47,41 @@ AlphaStar 在闭门赛中 [10-1 的悬殊比分击败职业选手](https://deepm
 
 这些系统从诞生之日起就注定了失败：它们结构脆弱、无法扩展、且根本不具备泛化能力。它们本质上是 GOFAI（经典符号 AI）的现代还魂 —— 几十年前就被主流学界抛弃的符号规则系统，如今喷了一层 LLM 的油漆便试图重亮招牌。包装变了，但依然是一条死路。
 
-### 心智转换：从 "开发 Agent" 到开发 Harness
+### 心智转向：从“开发 Agent”到“构建 Harness”
 
-当一个人说 "我在开发 Agent" 时，他只可能是两个意思之一：
+当有人说“我在开发 Agent”时，其真实含义只可能有两种：
 
-**1. 训练模型。** 通过强化学习、微调、RLHF 或其他基于梯度的方法调整权重。收集任务过程数据 -- 真实领域中感知、推理、行动的实际序列 -- 用它们来塑造模型的行为。这是 DeepMind、OpenAI、腾讯 AI Lab、Anthropic 在做的事。这是最本义的 Agent 开发。
+**1. 训练模型（Training）** 通过强化学习（RL）、微调（Fine-tuning）或 RLHF 等手段调整模型权重。核心在于收集任务过程数据（Task-Process Data）——即真实领域中感知、推理、行动的序列——并以此塑造模型的行为。这是 DeepMind、OpenAI 或 Anthropic 的战场。这是最原教旨意义上的 Agent 开发。
 
-**2. 构建 Harness。** 编写代码，为模型提供一个可操作的环境。这是我们大多数人在做的事，也是本仓库的核心。
+**2. 构建 Harness（机架/载具）** 编写代码，为模型提供一个可交互、可感知的运行环境。** 这是绝大多数开发者的使命，也是本仓库的核心。** 
 
-Harness 是 agent 在特定领域工作所需要的一切：
+什么是 Harness？Harness 是 Agent 在特定领域开展工作所需的一切基础设施：
 
 ```
-Harness = Tools + Knowledge + Observation + Action Interfaces + Permissions
+Harness = 工具 (Tools) + 知识 (Knowledge) + 观测 (Observation) + 行动接口 (Action Interfaces) + 权限 (Permissions)
 
-    Tools:          文件读写、Shell、网络、数据库、浏览器
-    Knowledge:      产品文档、领域资料、API 规范、风格指南
-    Observation:    git diff、错误日志、浏览器状态、传感器数据
-    Action:         CLI 命令、API 调用、UI 交互
-    Permissions:    沙箱隔离、审批流程、信任边界
+    工具：文件 I/O、Shell、网络请求、数据库、浏览器。
+
+    知识：产品文档、领域参考、API 规范、风格指南。
+
+    观测：Git Diff、错误日志、浏览器状态、传感器回传。
+
+    行动：CLI 命令、API 调用、UI 交互。
+
+    权限：沙箱隔离、审批流、信任边界。
 ```
 
-模型做决策。Harness 执行。模型做推理。Harness 提供上下文。模型是驾驶者。Harness 是载具。
+模型负责决策，Harness 负责执行。模型负责推理，Harness 提供上下文。模型是驾驶员，Harness 是载具。
 
-**编程 agent 的 harness 是它的 IDE、终端和文件系统。** 农业 agent 的 harness 是传感器阵列、灌溉控制和气象数据。酒店 agent 的 harness 是预订系统、客户沟通渠道和设施管理 API。Agent -- 那个智能、那个决策者 -- 永远是模型。Harness 因领域而变。Agent 跨领域泛化。
+- 编程 Agent 的 Harness 是它的 IDE、终端和文件系统。
 
-这个仓库教你造载具。编程用的载具。但设计模式可以泛化到任何领域：庄园管理、农田运营、酒店运作、工厂制造、物流调度、医疗保健、教育培训、科学研究。只要有一个任务需要被感知、推理和执行 -- agent 就需要一个 harness。
+- 农业 Agent 的 Harness 是传感器阵列、灌溉控制和气象数据源。
+
+- 酒店 Agent 的 Harness 是预订系统、客情渠道和设施管理接口。
+
+智能（决策者）永远是模型，它是通用的；而 Harness 随领域而变。 
+
+本仓库教你构建“载具”———虽然我们以编程为例，但其背后的设计模式适用于任何需要“感知-推理-执行”循环的领域：从工厂制造到物流调度，从医疗保健到科学研究。
 
 ### Harness 工程师到底在做什么
 
